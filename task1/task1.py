@@ -1,5 +1,9 @@
-import json
+import os
+import sys
+sys.path.append(os.getcwd())
 
+import json
+from copy import deepcopy
 
 def parse_json(path: str):
     with open(path, "r") as f:
@@ -25,11 +29,11 @@ def parse_json(path: str):
 
 
 def get_parents(tree, node):
-    return tree[node]["p"]
+    return deepcopy(tree[node]["p"])
 
 
 def get_children(tree, node):
-    return tree[node]["c"]
+    return deepcopy(tree[node]["c"])
 
 
 def get_brothers(tree, node):
