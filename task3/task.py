@@ -4,8 +4,8 @@ sys.path.append(os.getcwd())
 
 import numpy as np
 
-from task1.task1 import parse_json
-from task2.task2 import get_relations_matrix
+from task1.task import parse_json
+from task2.task import get_relations_matrix
 
 
 def calc_information_amount(tree):
@@ -26,7 +26,14 @@ def calc_information_amount(tree):
     return round(information_amount, 2)
 
 
-if __name__ == "__main__":
+def main():
     tree = parse_json("./task1/1.json")
+    entropy = calc_information_amount(tree)
+    
+    print("Энтропия:", entropy)
 
-    print(calc_information_amount(tree))
+    return entropy
+
+
+if __name__ == "__main__":
+    main()
