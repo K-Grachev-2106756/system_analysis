@@ -36,20 +36,39 @@ def get_children(tree, node):
     return deepcopy(tree[node]["c"])
 
 
-def get_brothers(tree, node):
-    result = []
+def get_brothers(tree, node, exclude_node: bool = True):
+    result = set()
     for parent in get_parents(tree, node):
         for brother in get_children(tree, parent):
-            result.append(brother)
+            result.add(brother)
     
-    # if node in result:
-    #     result.remove(node)
+    if exclude_node and (node in result):
+        result.remove(node)
     
-    return result
+    return list(result)
 
 
-if __name__ == "__main__":
+def main():
     tree = parse_json("./task1/1.json")
 
-    print(get_children(tree, "3"))
-    print(get_brothers(tree, "3"))
+    for i in range(1, 9):
+        obj = str(i)
+        
+        print("Вершина:", obj)
+        
+        childs = get_children(tree, obj)
+        if len(childs):
+            print("Дети:", childs)
+        else:
+            print("Детей нет")
+        
+        brothers = get_brothers(tree, obj)
+        if len(brothers):
+            print("Братья:", brothers)
+        else:
+            print("Братьев нет")            
+
+        print("=" * 10)
+
+if __name__ == "__main__":
+    main()
