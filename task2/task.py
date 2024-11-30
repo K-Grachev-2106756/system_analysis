@@ -4,7 +4,7 @@ sys.path.append(os.getcwd())
 
 import numpy as np
 
-from task1.task1 import parse_json, get_children, get_parents, get_brothers
+from task1.task import parse_json, get_children, get_parents, get_brothers
 
 # r1 - начальник (0)
 # r2 - подчиненный (1)
@@ -44,7 +44,11 @@ def get_relations_matrix(tree):
     return np.array(list(result.values()))
 
 
-if __name__ == "__main__":
+def main():
     tree = parse_json("./task1/1.json")
     
     print(f"RESULT: \n {get_relations_matrix(tree)}")
+
+
+if __name__ == "__main__":
+    main()
