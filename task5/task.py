@@ -1,11 +1,13 @@
 import os
 import sys
-sys.path.append(os.getcwd())
+import json
+from collections import Counter
 
 import numpy as np
 import pandas as pd
-import json
-from collections import Counter
+
+
+sys.path.append(os.getcwd())
 
 
 def parse_json(path: str) -> pd.DataFrame:
@@ -42,7 +44,7 @@ def prepare_matrices(matrix1: pd.DataFrame, matrix2: pd.DataFrame) -> tuple[pd.D
     return matrix1, matrix2, cols1
 
 
-def calc_contradictions_core(matrix1: np.ndarray, matrix2: np.ndarray, labels: list) -> list:
+def calc_contradictions_cores(matrix1: np.ndarray, matrix2: np.ndarray, labels: list) -> list:
     rating = np.sum(matrix1 * matrix2, axis=0)
 
     result, labels = [], np.array(labels)
@@ -51,13 +53,21 @@ def calc_contradictions_core(matrix1: np.ndarray, matrix2: np.ndarray, labels: l
             indicies = np.where(rating == points)[0]
             result.append(labels[indicies])
     
-    return result
+    return [core.tolist() for core in result]
 
 
-if __name__ == "__main__":
+def main():
     matrix1 = parse_json(os.path.join(os.getcwd(), "task5", "rang1.json"))
     matrix2 = parse_json(os.path.join(os.getcwd(), "task5", "rang2.json"))
 
     matrix1, matrix2, obj_order = prepare_matrices(matrix1, matrix2)
 
-    print(calc_contradictions_core(matrix1, matrix2, obj_order))
+    cores = calc_contradictions_cores(matrix1, matrix2, obj_order)
+
+    print("Ядра противоречий:", cores)
+
+    return cores
+
+
+if __name__ == "__main__":
+    main()
