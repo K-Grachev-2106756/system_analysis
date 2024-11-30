@@ -34,7 +34,7 @@ def get_relations_matrix(tree):
                 parents.append(parent)
                 result[node][3].append(parent)
         
-        brothers = get_brothers(tree, node)
+        brothers = get_brothers(tree, node, exclude_node=False)
         result[node][4].extend(brothers)
 
         for i in range(5):
@@ -45,7 +45,10 @@ def get_relations_matrix(tree):
 
 
 def main():
-    tree = parse_json("./task1/1.json")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
+
+    tree = parse_json(os.path.join(parent_dir, "all_data", "tree.json"))
     
     print(f"RESULT: \n {get_relations_matrix(tree)}")
 

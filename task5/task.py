@@ -57,8 +57,12 @@ def calc_contradictions_cores(matrix1: np.ndarray, matrix2: np.ndarray, labels: 
 
 
 def main():
-    matrix1 = parse_json(os.path.join(os.getcwd(), "task5", "rang1.json"))
-    matrix2 = parse_json(os.path.join(os.getcwd(), "task5", "rang2.json"))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
+    data_path = os.path.join(parent_dir, "all_data")
+
+    matrix1 = parse_json(os.path.join(data_path, "rang1.json"))
+    matrix2 = parse_json(os.path.join(data_path, "rang2.json"))
 
     matrix1, matrix2, obj_order = prepare_matrices(matrix1, matrix2)
 

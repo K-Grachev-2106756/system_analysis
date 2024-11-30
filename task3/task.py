@@ -27,7 +27,11 @@ def calc_information_amount(tree):
 
 
 def main():
-    tree = parse_json("./task1/1.json")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
+
+    tree = parse_json(os.path.join(parent_dir, "all_data", "tree.json"))
+    
     entropy = calc_information_amount(tree)
     
     print("Энтропия:", entropy)

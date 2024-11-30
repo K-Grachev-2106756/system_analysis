@@ -1,9 +1,11 @@
 import os
 import sys
-sys.path.append(os.getcwd())
-
 import json
 from copy import deepcopy
+
+
+sys.path.append(os.getcwd())
+
 
 def parse_json(path: str):
     with open(path, "r") as f:
@@ -49,7 +51,10 @@ def get_brothers(tree, node, exclude_node: bool = True):
 
 
 def main():
-    tree = parse_json("./task1/1.json")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
+
+    tree = parse_json(os.path.join(parent_dir, "all_data", "tree.json"))
 
     for i in range(1, 9):
         obj = str(i)
